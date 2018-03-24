@@ -1,0 +1,6 @@
+dependencies {
+    compile project(':conas-commons-hateoas')
+
+    compile conas.dependency('javaValidationApi')
+    compile conas.dependency('jacksonDatabind')
+}

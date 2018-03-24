@@ -1,0 +1,4 @@
+dependencies {
+    compile conas.dependency("jacksonDatabind")
+    compile conas.dependency("springBootHateoas")
+}
