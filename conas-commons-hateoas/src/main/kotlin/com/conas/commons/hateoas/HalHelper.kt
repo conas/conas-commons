@@ -4,6 +4,7 @@ import com.conas.commons.hateoas.pagination.PaginationResponse
 import org.springframework.hateoas.Link
 import org.springframework.hateoas.UriTemplate
 
+
 private const val PAGINATION_TEMPLATE = "{?page,limit,orderBy,orderDirection}"
 
 class HalPagination {

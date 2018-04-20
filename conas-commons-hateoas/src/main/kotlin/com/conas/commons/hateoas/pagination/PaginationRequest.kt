@@ -2,6 +2,7 @@ package com.conas.commons.hateoas.pagination
 
 import com.conas.commons.hateoas.descriptors.SortDirection
 
+
 private const val SPLIT_CHAR = ","
 
 data class PaginationRequest(
