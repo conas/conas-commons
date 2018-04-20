@@ -7,8 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.30'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.40'
         classpath 'com.conas:conas-gradle-plugin:1.1-SNAPSHOT'
     }
 }
@@ -27,15 +26,14 @@ allprojects {
 
 subprojects { subProject ->
     group 'com.conas'
-    version '1.0-SNAPSHOT'
 
     apply plugin: 'java'
     apply plugin: 'kotlin'
     apply plugin: 'conas'
-    apply plugin: 'maven'
+    apply plugin: 'conas.artifactory'
+    apply plugin: 'maven-publish'
 
     dependencies {
         compile conas.dependency("kotlinStd")
-        compile conas.dependency("lombok")
     }
 }

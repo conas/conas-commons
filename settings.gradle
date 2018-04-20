@@ -1,9 +1,10 @@
 rootProject.name = 'conas-commons'
 
 include (
+    'conas-commons-auth',
+    'conas-commons-conf',
     'conas-commons-hateoas',
+    'conas-commons-metrics-kafka',
     'conas-commons-rest',
     'conas-commons-utils'
 )
-include 'conas-commons-metrics-kafka'
-
