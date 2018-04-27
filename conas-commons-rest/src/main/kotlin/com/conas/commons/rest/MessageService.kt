@@ -11,14 +11,13 @@ import org.springframework.stereotype.Component
 class MessageService
     @Autowired constructor(private val messageSource: MessageSource) {
 
-    val log = LoggerFactory.getLogger(javaClass)
+    companion object {
+        private val log = LoggerFactory.getLogger(MessageService::class.java)
+    }
 
-    fun getLocalizedMessage(message: String, vararg replacements: Any): String {
+    fun getLocalizedMessage(message: String, replacements: Array<Any?>): String {
         return try {
-            messageSource.getMessage(message,
-                                     replacements,
-                                     LocaleContextHolder.getLocale())
-
+            messageSource.getMessage(message, replacements, LocaleContextHolder.getLocale())
         } catch (e: Exception) {
             log.error("Message for key: \"{}\" not found", message)
             message

@@ -1,17 +1,19 @@
 package com.conas.commons.rest.error
 
 import com.conas.commons.hateoas.pagination.HalResourceCollection
+import com.conas.commons.rest.ErrorEvent
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.hateoas.ResourceSupport
 
+
 data class ErrorResponse(
 
     @JsonProperty
-    override val code: Int,
+    val code: Int,
 
     @JsonProperty
-    override val message: String,
+    val message: String,
 
     @JsonProperty
     val logref: String,
@@ -20,10 +22,10 @@ data class ErrorResponse(
     @JsonInclude(JsonInclude.Include.NON_NULL)
     val path: String? = null
 
-) : ResourceSupport(), ErrorEvent {
+) : ResourceSupport() {
 
     constructor(errorEvent: ErrorEvent,
-                logRef: String): this(errorEvent.code, errorEvent.message, logRef)
+                logRef: String): this(errorEvent.code(), errorEvent.message(), logRef)
 }
 
 class ErrorsResponse : HalResourceCollection<ErrorResponse> {

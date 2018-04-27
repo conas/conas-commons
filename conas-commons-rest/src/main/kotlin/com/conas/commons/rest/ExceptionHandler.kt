@@ -17,22 +17,23 @@ import javax.validation.ConstraintViolation
 
 @ControllerAdvice
 open class ExceptionHandler
-        @Autowired constructor(private val messageService: MessageService,
+        @Autowired constructor(private val errorAssembler: ResponseAssembler,
                                private val errorRegistry: ErrorRegistry) {
 
-    private val log = LoggerFactory.getLogger(javaClass)
+    companion object {
+        private val log = LoggerFactory.getLogger(ExceptionHandler::class.java)
+    }
 
     @ExceptionHandler(ApplicationException::class)
     @ResponseBody
-    open fun handleApplicationException(e: ApplicationException)
-            : ResponseEntity<ErrorsResponse> {
-
+    open fun handleApplicationException(e: ApplicationException): ResponseEntity<ErrorsResponse> {
         val logRef = logException(e)
         val errorResponses = ArrayList<ErrorResponse>()
         for (errorBuilder in e.errorBuilders()) {
-            errorResponses.add(assembleErrorResponse(logRef,
-                                                     errorBuilder.errorEvent(),
-                                                     errorBuilder.replacements()))
+            errorResponses.add(
+                    errorAssembler.assembleErrorResponse(logRef,
+                                                         errorBuilder.errorEvent(),
+                                                         errorBuilder.replacements()))
         }
 
         return ResponseEntity(ErrorsResponse(errorResponses),
@@ -41,9 +42,7 @@ open class ExceptionHandler
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseBody
-    open fun handleMethodArgumentNotValid(e: MethodArgumentNotValidException)
-            : ResponseEntity<ErrorsResponse> {
-
+    open fun handleMethodArgumentNotValid(e: MethodArgumentNotValidException): ResponseEntity<ErrorsResponse> {
         val logRef = logException(e)
         val errorResponses = ArrayList<ErrorResponse>()
         loop@ for(error in e.bindingResult.allErrors) {
@@ -58,56 +57,30 @@ open class ExceptionHandler
                     }
 
                     val path = error.field
-                    val replacements = listOf<Any?>(path, error.rejectedValue)
-
-                    errorResponses.add(assembleErrorResponse(logRef,
-                                                             errorEvent,
-                                                             replacements,
-                                                             path))
+                    val replacements = arrayOf<Any?>(path, error.rejectedValue)
+                    errorResponses.add(errorAssembler.assembleErrorResponse(logRef, errorEvent, replacements, path))
                 }
             }
         }
 
-        return ResponseEntity(ErrorsResponse(errorResponses),
-                              HttpStatus.BAD_REQUEST)
+        return ResponseEntity(ErrorsResponse(errorResponses), HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(NoHandlerFoundException::class)
-    fun handleNoHandlerFoundException(e: NoHandlerFoundException) : ResponseEntity<ErrorsResponse> {
-        return assembleFromErrorEvent(e,
-                                      GeneralErrorEvents.NOT_FOUND_ERROR,
-                                      HttpStatus.NOT_FOUND)
-    }
+    fun handleNoHandlerFoundException(e: NoHandlerFoundException) =
+            assembleFromErrorEvent(e, GeneralErrorEvents.NOT_FOUND_ERROR, HttpStatus.NOT_FOUND)
 
     @ExceptionHandler(Exception::class)
     @ResponseBody
-    open fun handleException(e: Exception): ResponseEntity<ErrorsResponse> {
-        return assembleFromErrorEvent(e,
-                                      GeneralErrorEvents.INTERNAL_SERVER_ERROR,
-                                      HttpStatus.INTERNAL_SERVER_ERROR)
-    }
+    open fun handleException(e: Exception) =
+            assembleFromErrorEvent(e, GeneralErrorEvents.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR)
 
     private fun assembleFromErrorEvent(e: Exception,
                                        errorEvent: ErrorEvent,
                                        httpStatus: HttpStatus): ResponseEntity<ErrorsResponse> {
 
         val logRef = logException(e)
-        return ResponseEntity(ErrorsResponse(assembleErrorResponse(logRef, errorEvent)),
-                              httpStatus)
-    }
-
-    private fun assembleErrorResponse(logRef: String,
-                                      errorEvent: ErrorEvent,
-                                      replacements: List<Any?> = ArrayList(),
-                                      path: String? = null): ErrorResponse {
-
-        val localizedMessage =
-                messageService.getLocalizedMessage(errorEvent.message, replacements)
-
-        return ErrorResponse(errorEvent.code,
-                             localizedMessage,
-                             logRef,
-                             path)
+        return ResponseEntity(ErrorsResponse(errorAssembler.assembleErrorResponse(logRef, errorEvent)), httpStatus)
     }
 
     private fun logException(e: Exception) : String {

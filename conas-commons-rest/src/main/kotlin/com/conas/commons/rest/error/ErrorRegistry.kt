@@ -1,5 +1,6 @@
 package com.conas.commons.rest.error
 
+import com.conas.commons.rest.ErrorEvent
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.stereotype.Component
 

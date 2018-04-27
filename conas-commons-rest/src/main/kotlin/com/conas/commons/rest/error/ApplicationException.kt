@@ -1,5 +1,8 @@
 package com.conas.commons.rest.error
 
+import com.conas.commons.rest.ErrorEvent
+
+
 class ApplicationException : RuntimeException {
 
     private val _errorBuilders: MutableList<ErrorBuilder> = ArrayList()
