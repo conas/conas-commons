@@ -3,7 +3,7 @@ package com.conas.commons.rest.error
 import com.conas.commons.rest.ErrorEvent
 
 
-class ApplicationException : RuntimeException {
+class APIException : RuntimeException {
 
     private val _errorBuilders: MutableList<ErrorBuilder> = ArrayList()
     fun errorBuilders() : MutableList<ErrorBuilder> = _errorBuilders

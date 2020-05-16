@@ -1,6 +1,5 @@
-package com.conas.commons.hateoas
+package com.conas.commons.hateoas.pagination
 
-import com.conas.commons.hateoas.pagination.PaginationResponse
 import org.springframework.hateoas.Link
 import org.springframework.hateoas.UriTemplate
 
@@ -53,20 +52,20 @@ class HalPagination {
 
             paginationResponse.add(
                 Link(uriTemplate.expand(
-                    assembleParams(page, limit, orderBy, orderDirection)).toString(),
+                        assembleParams(page, limit, orderBy, orderDirection)).toString(),
                                    Link.REL_SELF))
 
-            if (HalPagination.hasPrevPage(paginationResponse)) {
+            if (hasPrevPage(paginationResponse)) {
                 paginationResponse.add(
                     Link(uriTemplate.expand(
                             assembleParams(page!! - 1, limit, orderBy, orderDirection)).toString(),
                                            Link.REL_PREVIOUS))
 
             }
-            if (HalPagination.hasNextPage(paginationResponse)) {
+            if (hasNextPage(paginationResponse)) {
                 paginationResponse.add(
                     Link(uriTemplate.expand(
-                        assembleParams(page!! + 1, limit, orderBy, orderDirection)).toString(),
+                            assembleParams(page!! + 1, limit, orderBy, orderDirection)).toString(),
                                        Link.REL_NEXT))
             }
 

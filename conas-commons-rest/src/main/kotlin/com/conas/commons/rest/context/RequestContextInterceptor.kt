@@ -2,7 +2,6 @@ package com.conas.commons.rest.context
 
 import org.springframework.web.servlet.HandlerInterceptor
 import org.springframework.web.servlet.ModelAndView
-import sun.plugin.dom.core.CoreConstants
 import java.util.UUID
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse

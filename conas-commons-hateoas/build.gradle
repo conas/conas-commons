@@ -1,4 +1,7 @@
 dependencies {
-    compile conas.dependency("jacksonDatabind")
-    compile conas.dependency("springBootHateoas")
+    compile conas.dependency('jacksonKotlin')
+    compile conas.dependency('jacksonDatabind')
+    compile conas.dependency('springBootHateoas')
+    compile conas.dependency('springWeb')
+
 }

@@ -9,6 +9,7 @@ enum class GeneralErrorEvents(private val code: Int,
                               private val message: String) : ErrorEvent {
 
     NOT_FOUND_ERROR(404, "not.found.error"),
+    UNAUTHORIZED(401, "unauthorized"),
     INTERNAL_SERVER_ERROR(500, "internal.server.error");
 
     override fun code(): Int = code

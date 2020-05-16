@@ -24,9 +24,9 @@ open class ExceptionHandler
         private val log = LoggerFactory.getLogger(ExceptionHandler::class.java)
     }
 
-    @ExceptionHandler(ApplicationException::class)
+    @ExceptionHandler(APIException::class)
     @ResponseBody
-    open fun handleApplicationException(e: ApplicationException): ResponseEntity<ErrorsResponse> {
+    open fun handleApplicationException(e: APIException): ResponseEntity<ErrorsResponse> {
         val logRef = logException(e)
         val errorResponses = ArrayList<ErrorResponse>()
         for (errorBuilder in e.errorBuilders()) {
