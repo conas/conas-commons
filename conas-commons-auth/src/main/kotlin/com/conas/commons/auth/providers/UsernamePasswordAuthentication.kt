@@ -1,4 +1,4 @@
-package com.clerk.auth.core.providers
+package com.conas.commons.auth.providers
 
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority

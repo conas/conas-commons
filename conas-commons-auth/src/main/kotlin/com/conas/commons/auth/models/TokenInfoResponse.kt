@@ -3,7 +3,7 @@ package com.conas.commons.auth.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 
-data class TokenInfo(
+data class TokenInfoResponse(
         
     @JsonProperty
     val jti: String? = null,

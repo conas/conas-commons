@@ -57,7 +57,7 @@ subprojects { subProject ->
 
     dependencyManagement {
         imports {
-            mavenBom 'com.conas:conas-dependencies:1.4'
+            mavenBom 'com.conas:conas-dependencies:1.5'
         }
     }
 

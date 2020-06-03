@@ -3,6 +3,7 @@ dependencies {
 
     api 'com.fasterxml.jackson.core:jackson-databind'
     api 'org.springframework.security:spring-security-web'
+    api 'org.springframework.security:spring-security-core'
     api 'org.bitbucket.b_c:jose4j'
 
     testImplementation "ch.qos.logback:logback-classic"
