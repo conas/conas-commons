@@ -1,5 +1,6 @@
 package com.conas.commons.hateoas.pagination
 
+import org.springframework.hateoas.IanaLinkRelations
 import org.springframework.hateoas.Link
 import org.springframework.hateoas.UriTemplate
 
@@ -48,25 +49,25 @@ class HalPagination {
             val (_, _, _, page, limit, orderBy, orderDirection) = paginationResponse
 
             // NOTE(all) strip trailing slash
-            val uriTemplate = UriTemplate(path + PAGINATION_TEMPLATE)
+            val uriTemplate = UriTemplate.of(path + PAGINATION_TEMPLATE)
 
             paginationResponse.add(
-                Link(uriTemplate.expand(
-                        assembleParams(page, limit, orderBy, orderDirection)).toString(),
-                                   Link.REL_SELF))
+                Link.of(uriTemplate.expand(
+                            assembleParams(page, limit, orderBy, orderDirection)).toString(),
+                        IanaLinkRelations.SELF))
 
             if (hasPrevPage(paginationResponse)) {
                 paginationResponse.add(
-                    Link(uriTemplate.expand(
-                            assembleParams(page!! - 1, limit, orderBy, orderDirection)).toString(),
-                                           Link.REL_PREVIOUS))
+                    Link.of(uriTemplate.expand(
+                                assembleParams(page!! - 1, limit, orderBy, orderDirection)).toString(),
+                            IanaLinkRelations.PREVIOUS))
 
             }
             if (hasNextPage(paginationResponse)) {
                 paginationResponse.add(
-                    Link(uriTemplate.expand(
-                            assembleParams(page!! + 1, limit, orderBy, orderDirection)).toString(),
-                                       Link.REL_NEXT))
+                    Link.of(uriTemplate.expand(
+                                assembleParams(page!! + 1, limit, orderBy, orderDirection)).toString(),
+                            IanaLinkRelations.NEXT))
             }
 
             paginationResponse.embedResource("items", paginationResponse.data)

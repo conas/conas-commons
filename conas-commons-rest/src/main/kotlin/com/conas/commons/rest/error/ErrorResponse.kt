@@ -4,7 +4,7 @@ import com.conas.commons.hateoas.pagination.HalResourceCollection
 import com.conas.commons.rest.ErrorEvent
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.springframework.hateoas.ResourceSupport
+import org.springframework.hateoas.RepresentationModel
 
 
 data class ErrorResponse(
@@ -22,7 +22,7 @@ data class ErrorResponse(
     @JsonInclude(JsonInclude.Include.NON_NULL)
     val path: String? = null
 
-) : ResourceSupport() {
+) : RepresentationModel<ErrorResponse>() {
 
     constructor(errorEvent: ErrorEvent,
                 logRef: String): this(errorEvent.code(), errorEvent.message(), logRef)

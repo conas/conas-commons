@@ -2,11 +2,11 @@ package com.conas.commons.hateoas.pagination
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.springframework.hateoas.ResourceSupport
+import org.springframework.hateoas.RepresentationModel
 
-abstract class HalResourceCollection<T> : ResourceSupport() {
+abstract class HalResourceCollection<T> : RepresentationModel<HalResourceCollection<T>>() {
 
-    protected val embedded = HashMap<String, Collection<T>>()
+    private val embedded = HashMap<String, Collection<T>>()
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("_embedded")

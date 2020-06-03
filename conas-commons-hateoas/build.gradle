@@ -1,7 +1,7 @@
 dependencies {
-    compile conas.dependency('jacksonKotlin')
-    compile conas.dependency('jacksonDatabind')
-    compile conas.dependency('springBootHateoas')
-    compile conas.dependency('springWeb')
+    api 'com.fasterxml.jackson.core:jackson-databind'
 
+    api 'org.springframework:spring-web'
+    api 'org.springframework.boot:spring-boot-starter-hateoas'
+    api 'org.springframework.hateoas:spring-hateoas'
 }

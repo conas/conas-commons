@@ -1,6 +1,6 @@
 dependencies {
     compile project(':conas-commons-hateoas')
 
-    compile conas.dependency('javaValidationApi')
-    compile conas.dependency('jacksonDatabind')
+    api 'javax.validation:validation-api'
+    api 'com.fasterxml.jackson.core:jackson-databind'
 }
