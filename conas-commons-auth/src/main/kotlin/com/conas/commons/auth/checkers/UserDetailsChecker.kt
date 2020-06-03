@@ -11,17 +11,17 @@ import org.springframework.stereotype.Component
 @Component
 open class UserDetailsChecker : Checker<UserDetails> {
 
-    override fun check(user: UserDetails) {
-        if (user.isAccountNonLocked == false) {
+    override fun check(checkObject: UserDetails) {
+        if (!checkObject.isAccountNonLocked) {
             throw LockedException("User locked")
         }
-        if (user.isEnabled == false) {
+        if (!checkObject.isEnabled) {
             throw DisabledException("User disabled")
         }
-        if (user.isAccountNonExpired == false) {
+        if (!checkObject.isAccountNonExpired) {
             throw AccountExpiredException("Account expired")
         }
-        if (user.isCredentialsNonExpired == false) {
+        if (!checkObject.isCredentialsNonExpired) {
             throw CredentialsExpiredException("Credentials expired")
         }
     }
