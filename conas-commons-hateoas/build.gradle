@@ -5,4 +5,6 @@ dependencies {
     api 'org.springframework:spring-web'
     api 'org.springframework.boot:spring-boot-starter-hateoas'
     api 'org.springframework.hateoas:spring-hateoas'
+
+    testImplementation'org.springframework.boot:spring-boot-starter-test'
 }
