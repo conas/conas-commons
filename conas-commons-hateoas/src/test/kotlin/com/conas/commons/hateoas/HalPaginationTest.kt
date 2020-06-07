@@ -18,7 +18,7 @@ import java.util.*
     HalDefaultConfig::class,
     JacksonConfig::class
 ])
-class TestHalPagination {
+class HalPaginationTest {
 
     @Autowired
     private val builder: Jackson2ObjectMapperBuilder? = null
